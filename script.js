@@ -32,38 +32,35 @@ function playRound(computerChoice, playerChoice) {
   }
 }
 
-function game(rounds, playerName) {
-  const players = [
-    { name: 'computer', score: 0 },
-    { name: playerName, score: 0 },
-  ];
+function game() {
+  let computerScore = 0;
+  let playerScore = 0;
+  let computerChoice, playerChoice;
 
-  for (let i = 0; i < rounds; i++) {
-    const computerChoice = getComputerChoice();
-    const playerChoice = getPlayerChoice();
+  for (let i = 0; i < 5; i++) {
+    computerChoice = getComputerChoice();
+    playerChoice = getPlayerChoice();
 
-    let outcome = `Round ${i}: `;
+    let outcome = `Round ${i + 1}: `;
     outcome += playRound(computerChoice, playerChoice);
     console.log(outcome);
-    if (outcome.includes('You Lose')) {
-      players[0]['score']++;
+    if (outcome.includes('Lose')) {
+      computerScore++;
     }
-    if (outcome.includes('You Win')) {
-      players[1]['score']++;
+    if (outcome.includes('Win')) {
+      playerScore++;
     }
   }
 
-  let gameOutcome = `Tie game with a score of ${computerScore} to ${computerScore}!`;
+  if (computerScore === playerScore) {
+    console.log(`Tie game ${computerScore} to ${computerScore}`);
+  }
+  if (computerScore > playerScore) {
+    console.log(`Computer beats player ${computerScore} to ${playerScore}`);
+  }
   if (playerScore > computerScore) {
-    gameOutcome = `You beat computer with a score of `;
-    gameOutcome += `${playerScore} to ${computerScore}!`;
+    console.log(`Player beats computer ${playerScore} to ${computerScore}`);
   }
-  if (playerScore < computerScore) {
-    gameOutcome = `Computer beat you with a score of ${computerScore} to ${playerScore}!`;
-  }
-  console.log(gameOutcome);
 }
 
-const rounds = 5;
-const playerName = 'player';
-game(rounds, playerName);
+game();
