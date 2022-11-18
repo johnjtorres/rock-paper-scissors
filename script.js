@@ -5,6 +5,7 @@ function getComputerChoice() {
 }
 
 function capitalize(str) {
+  if (!str) return;
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
@@ -31,7 +32,38 @@ function playRound(computerChoice, playerChoice) {
   }
 }
 
-const computerChoice = getComputerChoice();
-const playerChoice = getPlayerChoice();
+function game(rounds, playerName) {
+  const players = [
+    { name: 'computer', score: 0 },
+    { name: playerName, score: 0 },
+  ];
 
-console.log(playRound(computerChoice, playerChoice));
+  for (let i = 0; i < rounds; i++) {
+    const computerChoice = getComputerChoice();
+    const playerChoice = getPlayerChoice();
+
+    let outcome = `Round ${i}: `;
+    outcome += playRound(computerChoice, playerChoice);
+    console.log(outcome);
+    if (outcome.includes('You Lose')) {
+      players[0]['score']++;
+    }
+    if (outcome.includes('You Win')) {
+      players[1]['score']++;
+    }
+  }
+
+  let gameOutcome = `Tie game with a score of ${computerScore} to ${computerScore}!`;
+  if (playerScore > computerScore) {
+    gameOutcome = `You beat computer with a score of `;
+    gameOutcome += `${playerScore} to ${computerScore}!`;
+  }
+  if (playerScore < computerScore) {
+    gameOutcome = `Computer beat you with a score of ${computerScore} to ${playerScore}!`;
+  }
+  console.log(gameOutcome);
+}
+
+const rounds = 5;
+const playerName = 'player';
+game(rounds, playerName);
