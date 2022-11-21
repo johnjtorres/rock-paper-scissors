@@ -1,10 +1,12 @@
 const CHOICES = ['Rock', 'Paper', 'Scissors'];
+const rounds = 5;
 
 function getComputerChoice() {
   return CHOICES[Math.floor(Math.random() * 3)];
 }
 
 function capitalize(str) {
+  if (str === '') return '';
   if (!str) return;
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -12,46 +14,43 @@ function capitalize(str) {
 function getPlayerChoice() {
   while (true) {
     const playerChoice = capitalize(prompt('Rock, Paper, or Scissors?'));
-    if (!CHOICES.includes(playerChoice)) continue;
-    return playerChoice;
+    if (CHOICES.includes(playerChoice)) return playerChoice;
+    if (playerChoice === '') continue;
+    if (!playerChoice) return;
   }
 }
 
 function playRound(computerChoice, playerChoice) {
   switch (computerChoice.concat(playerChoice)) {
-    case 'RockPaper':
-    case 'PaperScissors':
-    case 'ScissorsRock':
-      return `You Win! ${playerChoice} beats ${computerChoice}!`;
     case 'PaperRock':
     case 'ScissorsPaper':
     case 'RockScissors':
-      return `You Lose! ${computerChoice} beats ${playerChoice}!`;
+      return 1;
+    case 'RockPaper':
+    case 'PaperScissors':
+    case 'ScissorsRock':
+      return 2;
     default:
-      return "It's a tie!";
+      return 0;
   }
 }
 
-function game() {
-  let computerScore = 0;
-  let playerScore = 0;
-  let computerChoice, playerChoice;
+function printChoices(round, computerChoice, playerChoice) {
+  console.log(`Round ${round}: ${computerChoice} vs ${playerChoice}`);
+}
 
-  for (let i = 0; i < 5; i++) {
-    computerChoice = getComputerChoice();
-    playerChoice = getPlayerChoice();
-
-    let outcome = `Round ${i + 1}: `;
-    outcome += playRound(computerChoice, playerChoice);
-    console.log(outcome);
-    if (outcome.includes('Lose')) {
-      computerScore++;
-    }
-    if (outcome.includes('Win')) {
-      playerScore++;
-    }
+function printRoundWinner(winner) {
+  let result = "*****It's a tie!*****";
+  if (winner === 1) {
+    result = `****You lose!*****`;
   }
+  if (winner === 2) {
+    result = '*****You win!*****';
+  }
+  console.log(result);
+}
 
+function printGameWinner(computerScore, playerScore) {
   if (computerScore === playerScore) {
     console.log(`Tie game ${computerScore} to ${computerScore}`);
   }
@@ -63,4 +62,22 @@ function game() {
   }
 }
 
-game();
+function game(rounds) {
+  let computerScore = 0;
+  let playerScore = 0;
+  let computerChoice, playerChoice;
+
+  for (let round = 1; round <= rounds; round++) {
+    computerChoice = getComputerChoice();
+    playerChoice = getPlayerChoice();
+    if (!playerChoice) return;
+    printChoices(round, computerChoice, playerChoice);
+    winner = playRound(computerChoice, playerChoice);
+    printRoundWinner(round, winner);
+    if (winner === 1) computerScore++;
+    if (winner === 2) playerScore++;
+  }
+  printGameWinner(computerScore, playerScore);
+}
+
+game(rounds);
