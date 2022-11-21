@@ -40,14 +40,16 @@ function printChoices(round, computerChoice, playerChoice) {
 }
 
 function printRoundWinner(winner) {
-  let result = "*****It's a tie!*****";
-  if (winner === 0) {
-    result = `****You lose!*****`;
+  switch (winner) {
+    case 0:
+      console.log('****You lose!*****');
+      break;
+    case 1:
+      console.log('*****You win!*****');
+      break;
+    default:
+      console.log("*****It's a tie!*****");
   }
-  if (winner === 1) {
-    result = '*****You win!*****';
-  }
-  console.log(result);
 }
 
 function printGameWinner(scores) {
