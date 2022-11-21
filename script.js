@@ -25,13 +25,13 @@ function playRound(computerChoice, playerChoice) {
     case 'PaperRock':
     case 'ScissorsPaper':
     case 'RockScissors':
-      return 1;
+      return 0;
     case 'RockPaper':
     case 'PaperScissors':
     case 'ScissorsRock':
-      return 2;
+      return 1;
     default:
-      return 0;
+      return -1;
   }
 }
 
@@ -41,43 +41,41 @@ function printChoices(round, computerChoice, playerChoice) {
 
 function printRoundWinner(winner) {
   let result = "*****It's a tie!*****";
-  if (winner === 1) {
+  if (winner === 0) {
     result = `****You lose!*****`;
   }
-  if (winner === 2) {
+  if (winner === 1) {
     result = '*****You win!*****';
   }
   console.log(result);
 }
 
-function printGameWinner(computerScore, playerScore) {
-  if (computerScore === playerScore) {
-    console.log(`Tie game ${computerScore} to ${computerScore}`);
+function printGameWinner(scores) {
+  if (scores[0] === scores[1]) {
+    console.log(`Tie game ${scores[0]} to ${scores[0]}`);
   }
-  if (computerScore > playerScore) {
-    console.log(`Computer beats player ${computerScore} to ${playerScore}`);
+  if (scores[0] > scores[1]) {
+    console.log(`Computer beats player ${scores[0]} to ${scores[1]}`);
   }
-  if (playerScore > computerScore) {
-    console.log(`Player beats computer ${playerScore} to ${computerScore}`);
+  if (scores[1] > scores[0]) {
+    console.log(`Player beats computer ${scores[1]} to ${scores[0]}`);
   }
 }
 
 function game(rounds) {
-  let computerScore = 0;
-  let playerScore = 0;
-  let computerChoice, playerChoice;
+  let scores = [0, 0];
+  let computerChoice, playerChoice, roundWinner;
 
   for (let round = 1; round <= rounds; round++) {
     computerChoice = getComputerChoice();
     playerChoice = getPlayerChoice();
     if (!playerChoice) return;
     printChoices(round, computerChoice, playerChoice);
-    winner = playRound(computerChoice, playerChoice);
-    printRoundWinner(round, winner);
-    if (winner === 1) computerScore++;
-    if (winner === 2) playerScore++;
+    roundWinner = playRound(computerChoice, playerChoice);
+    printRoundWinner(roundWinner);
+    if (roundWinner >= 0) scores[roundWinner]++;
   }
-  printGameWinner(computerScore, playerScore);
+  printGameWinner(scores);
 }
 
 game(rounds);
