@@ -69,6 +69,7 @@ function game(rounds) {
   for (let round = 1; round <= rounds; round++) {
     computerChoice = getComputerChoice();
     playerChoice = getPlayerChoice();
+    // End the game if user cancels the prompt
     if (!playerChoice) return;
     printChoices(round, computerChoice, playerChoice);
     roundWinner = playRound(computerChoice, playerChoice);
