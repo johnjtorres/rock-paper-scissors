@@ -1,0 +1,9 @@
+.selections {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.selection {
+  font-size: 2rem;
+}
