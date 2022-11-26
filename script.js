@@ -82,5 +82,3 @@ function game(rounds) {
   }
   printGameWinner(scores);
 }
-
-game(rounds);
