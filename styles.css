@@ -1,9 +1,80 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: lightgray;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 2rem;
+}
+
+.computer,
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  font-size: 2rem;
+  font-weight: bold;
+  gap: 2rem;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+.red,
+.blue {
+  font-size: 3rem;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+  width: 30%;
+  flex-basis: auto;
+  flex-grow: 1;
+}
+
 .selections {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 2rem;
+  width: 100%;
+  flex: 1;
 }
 
 .selection {
-  font-size: 2rem;
+  font-size: 1.5rem;
+  width: 20%;
+  flex: initial;
+}
+
+.hidden {
+  display: none;
 }
