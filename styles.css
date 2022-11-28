@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+
 html {
   box-sizing: border-box;
 }
@@ -9,72 +11,54 @@ html {
 }
 
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  background-color: lightgray;
-}
-
-.choices {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-  font-size: 2rem;
-}
-
-.computer,
-.player {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-grow: 1;
-  font-size: 2rem;
-  font-weight: bold;
-  gap: 2rem;
-}
-
-.red {
-  color: red;
-}
-
-.blue {
-  color: blue;
-}
-
-.red,
-.blue {
-  font-size: 3rem;
+  padding: 0;
+  margin: 0;
 }
 
 .game {
+  font-family: 'Roboto', sans-serif;
+  background-color: rgb(36 40 59);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.player,
+.computer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  font-size: 2rem;
-  font-weight: bold;
-  width: 30%;
-  flex-basis: auto;
-  flex-grow: 1;
 }
 
-.selections {
+.player {
+  color: rgb(122 162 247);
+}
+
+.computer {
+  color: rgb(247 118 142);
+}
+
+.score {
+  font-size: 8rem;
+}
+
+.name {
+  font-size: 2rem;
+}
+
+.round {
+  font-size: 4rem;
+  color: rgb(86 95 137);
+}
+
+.rps {
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  width: 100%;
-  flex: 1;
 }
 
-.selection {
-  font-size: 1.5rem;
-  width: 20%;
-  flex: initial;
-}
-
-.hidden {
-  display: none;
+.rps > * {
+  width: 8rem;
 }
