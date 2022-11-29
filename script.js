@@ -1,6 +1,8 @@
 const CHOICES = ['rock', 'paper', 'scissors'];
 const MAX_ROUNDS = 5;
 
+let isGameOver = false;
+
 const playerScore = document.querySelector('div.player>div.score');
 const computerScore = document.querySelector('div.computer>div.score');
 
@@ -30,6 +32,7 @@ function game(event) {
   console.log('Computer choice:', computerChoice);
   playRound(computerChoice, playerChoice);
   checkWinner();
+  if (!isGameOver) updateRoundNumber();
 }
 
 function unselectImages() {
@@ -83,10 +86,11 @@ function getComputerScore() {
 
 function checkWinner() {
   if (getPlayerScore() >= MAX_ROUNDS) gameOver('Player');
-  if (getComputerChoice() >= MAX_ROUNDS) gameOver('Computer');
+  if (getComputerScore() >= MAX_ROUNDS) gameOver('Computer');
 }
 
 function gameOver(winner) {
+  isGameOver = true;
   // Hide rock, paper, symbol divs
   [...playerChoices, computerChoice].forEach((choice) => {
     choice.classList.toggle('hidden');
