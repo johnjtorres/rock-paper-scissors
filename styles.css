@@ -59,10 +59,14 @@ body {
 .rps {
   display: flex;
   justify-content: center;
+  min-height: 8rem;
+  max-height: 8rem;
 }
 
 .rps > * {
   width: 8rem;
+  height: auto;
+  transition: width 0.5s, height 0.5s;
 }
 
 .player .rps > * {
@@ -71,6 +75,7 @@ body {
 
 .selected {
   opacity: 1 !important;
+  width: 10rem;
 }
 
 .hidden {
