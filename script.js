@@ -1,84 +1,96 @@
-const CHOICES = ['Rock', 'Paper', 'Scissors'];
-const rounds = 5;
+const CHOICES = ['rock', 'paper', 'scissors'];
+const MAX_ROUNDS = 5;
+
+const playerScore = document.querySelector('div.player>div.score');
+const computerScore = document.querySelector('div.computer>div.score');
+
+const rock = document.querySelector('div[data-choice="rock"]');
+const paper = document.querySelector('div[data-choice="paper"]');
+const scissors = document.querySelector('div[data-choice="scissors"]');
+const playerChoices = [rock, paper, scissors];
+
+const computerChoice = document.querySelector(
+  'div.computer>div.rps>div[data-choice]>img'
+);
+
+let curRound = 1;
+const round = document.querySelector('div.round');
+
+playerChoices.forEach((choice) => {
+  choice.addEventListener('click', game);
+});
+
+function game(event) {
+  unselectImages();
+  event.currentTarget.classList.add('selected');
+  const playerChoice = this.getAttribute('data-choice');
+  const computerChoice = getComputerChoice();
+  updateComputerChoiceImage(computerChoice);
+  console.log('Player choice:', playerChoice);
+  console.log('Computer choice:', computerChoice);
+  playRound(computerChoice, playerChoice);
+  checkWinner();
+}
+
+function unselectImages() {
+  const imgs = document.querySelectorAll('.selected');
+  imgs.forEach((img) => {
+    img.classList.toggle('selected');
+  });
+}
 
 function getComputerChoice() {
   return CHOICES[Math.floor(Math.random() * 3)];
 }
 
-function capitalize(str) {
-  if (str === '') return '';
-  if (!str) return;
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-function getPlayerChoice() {
-  while (true) {
-    const playerChoice = capitalize(prompt('Rock, Paper, or Scissors?'));
-    if (CHOICES.includes(playerChoice)) return playerChoice;
-    if (playerChoice === '') continue;
-    if (!playerChoice) return;
-  }
+function updateComputerChoiceImage(choice) {
+  computerChoice.classList.remove('hidden');
+  computerChoice.src = `images/${choice}.svg`;
 }
 
 function playRound(computerChoice, playerChoice) {
   switch (computerChoice.concat(playerChoice)) {
-    case 'PaperRock':
-    case 'ScissorsPaper':
-    case 'RockScissors':
-      return 0;
-    case 'RockPaper':
-    case 'PaperScissors':
-    case 'ScissorsRock':
-      return 1;
-    default:
-      return -1;
-  }
-}
-
-function printChoices(round, computerChoice, playerChoice) {
-  console.log(`Round ${round}: ${computerChoice} vs ${playerChoice}`);
-}
-
-function printRoundWinner(winner) {
-  switch (winner) {
-    case 0:
-      console.log('****You lose!*****');
+    case 'paper' + 'rock':
+    case 'scissors' + 'paper':
+    case 'rock' + 'scissors':
+      console.log('Computer wins round!');
+      computerScore.textContent++;
       break;
-    case 1:
-      console.log('*****You win!*****');
+    case 'rock' + 'paper':
+    case 'paper' + 'scissors':
+    case 'scissors' + 'rock':
+      console.log('Player wins round!');
+      playerScore.textContent++;
       break;
     default:
-      console.log("*****It's a tie!*****");
+      console.log('Tie round!');
+      return;
   }
 }
 
-function printGameWinner(scores) {
-  if (scores[0] === scores[1]) {
-    console.log(`Tie game ${scores[0]} to ${scores[0]}`);
-  }
-  if (scores[0] > scores[1]) {
-    console.log(`Computer beats player ${scores[0]} to ${scores[1]}`);
-  }
-  if (scores[1] > scores[0]) {
-    console.log(`Player beats computer ${scores[1]} to ${scores[0]}`);
-  }
+function updateRoundNumber() {
+  curRound++;
+  round.textContent = `Round ${curRound}`;
 }
 
-function game(rounds) {
-  let scores = [0, 0];
-  let computerChoice, playerChoice, roundWinner;
+function getPlayerScore() {
+  return parseInt(playerScore.textContent);
+}
 
-  for (let round = 1; round <= rounds; round++) {
-    computerChoice = getComputerChoice();
-    playerChoice = getPlayerChoice();
+function getComputerScore() {
+  return parseInt(computerScore.textContent);
+}
 
-    // End the game if user cancels the prompt
-    if (!playerChoice) return;
+function checkWinner() {
+  if (getPlayerScore() >= MAX_ROUNDS) gameOver('Player');
+  if (getComputerChoice() >= MAX_ROUNDS) gameOver('Computer');
+}
 
-    printChoices(round, computerChoice, playerChoice);
-    roundWinner = playRound(computerChoice, playerChoice);
-    printRoundWinner(roundWinner);
-    if (roundWinner >= 0) scores[roundWinner]++;
-  }
-  printGameWinner(scores);
+function gameOver(winner) {
+  // Hide rock, paper, symbol divs
+  [...playerChoices, computerChoice].forEach((choice) => {
+    choice.classList.toggle('hidden');
+  });
+  // Announce winner
+  round.textContent = `${winner} wins!`;
 }

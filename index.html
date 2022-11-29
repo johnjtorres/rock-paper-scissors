@@ -15,9 +15,11 @@
         <div class="name">Player</div>
         <div class="score">0</div>
         <div class="rps">
-          <div class="rock"><img src="images/rock.svg" alt="rock" /></div>
-          <div class="paper"><img src="images/paper.svg" alt="paper" /></div>
-          <div class="scissors">
+          <div data-choice="rock"><img src="images/rock.svg" alt="rock" /></div>
+          <div data-choice="paper">
+            <img src="images/paper.svg" alt="paper" />
+          </div>
+          <div data-choice="scissors">
             <img src="images/scissors.svg" alt="scissors" srcset="" />
           </div>
         </div>
@@ -25,7 +27,9 @@
       <div class="round">Round 1</div>
       <div class="computer">
         <div class="rps">
-          <div class="rock"><img src="images/rock.svg" alt="rock" /></div>
+          <div data-choice="rock">
+            <img class="hidden" src="images/rock.svg" alt="computer-choice" />
+          </div>
         </div>
         <div class="score">0</div>
         <div class="name">Computer</div>

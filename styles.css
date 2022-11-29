@@ -43,6 +43,7 @@ body {
 
 .score {
   font-size: 8rem;
+  font-weight: 700;
 }
 
 .name {
@@ -51,6 +52,7 @@ body {
 
 .round {
   font-size: 4rem;
+  font-weight: 700;
   color: rgb(86 95 137);
 }
 
@@ -61,4 +63,16 @@ body {
 
 .rps > * {
   width: 8rem;
+}
+
+.player .rps > * {
+  opacity: 0.2;
+}
+
+.selected {
+  opacity: 1 !important;
+}
+
+.hidden {
+  display: none;
 }
